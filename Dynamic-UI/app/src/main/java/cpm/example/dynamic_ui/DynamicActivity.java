@@ -50,15 +50,16 @@ public class DynamicActivity extends ActionBarActivity {
     public RelativeLayout CreateFragment(Bundle state, int amount)
     {
         RelativeLayout root = new RelativeLayout(getBaseContext());
+
         if (state == null)
         {
             ArrayList<Button> buttons = new ArrayList<Button>(0);
             for(int i = 0; i < amount; i++)
             {
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(200,200);
                 buttons.add(new Button(getApplicationContext()));
                 buttons.get(i).setText((CharSequence) ("Button " + (i + 1)));
-                if(i > 0)
+                if(i != 0)
                 {
                     buttons.get(i).setId(Integer.MAX_VALUE - i);
                     params.addRule(RelativeLayout.BELOW,buttons.get(i - 1).getId());
@@ -67,9 +68,11 @@ public class DynamicActivity extends ActionBarActivity {
                 else
                 {
                     buttons.get(i).setId(Integer.MAX_VALUE - i);
+                    params.leftMargin = 300;
+                    params.topMargin = 200;
                     buttons.get(i).setLayoutParams(params);
                 }
-                root.addView(buttons.get(i));
+                root.addView(buttons.get(i),params);
             }
             this.setContentView(root);
             return root;

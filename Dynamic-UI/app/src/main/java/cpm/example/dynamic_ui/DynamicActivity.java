@@ -59,6 +59,7 @@ public class DynamicActivity extends ActionBarActivity {
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(200,200);
                 buttons.add(new Button(getApplicationContext()));
                 buttons.get(i).setText((CharSequence) ("Button " + (i + 1)));
+                AddButtonLayout(buttons.get(i),RelativeLayout.CENTER_IN_PARENT);
                 if(i != 0)
                 {
                     buttons.get(i).setId(Integer.MAX_VALUE - i);
@@ -68,15 +69,32 @@ public class DynamicActivity extends ActionBarActivity {
                 else
                 {
                     buttons.get(i).setId(Integer.MAX_VALUE - i);
-                    params.leftMargin = 300;
-                    params.topMargin = 200;
                     buttons.get(i).setLayoutParams(params);
                 }
-                root.addView(buttons.get(i),params);
+                root.addView(buttons.get(i),buttons.get(i).getLayoutParams());
             }
             this.setContentView(root);
             return root;
         }
         return null;
+    }
+
+    private void AddButtonLayout(Button button, int centerInParent, int marginLeft, int marginTop, int marginRight, int marginBottom) {
+        // Defining the layout parameters of the Button
+        RelativeLayout.LayoutParams buttonLayoutParameters = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        // Add Margin to the LayoutParameters
+        buttonLayoutParameters.setMargins(marginLeft, marginTop, marginRight, marginBottom);
+
+        // Add Rule to Layout
+        buttonLayoutParameters.addRule(centerInParent);
+
+        // Setting the parameters on the Button
+        button.setLayoutParams(buttonLayoutParameters);
+    }
+
+    private void AddButtonLayout(Button button, int centerInParent) {
+        // Just call the other AddButtonLayout Method with Margin 0
+        AddButtonLayout(button, centerInParent, 0 ,0 ,0 ,0);
     }
 }
